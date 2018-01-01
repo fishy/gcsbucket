@@ -1,4 +1,4 @@
-workspace(name = "gcsbucket")
+workspace(name = "com_github_fishy_gcsbucket")
 
 http_archive(
     name = "io_bazel_rules_go",
