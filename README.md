@@ -14,4 +14,4 @@ for more background information.
 
 ## License
 
-[BSD License](https://github.com/fishy/fsdb/blob/master/LICENSE).
+[BSD License](https://github.com/fishy/gcsbucket/blob/master/LICENSE).
