@@ -12,7 +12,11 @@ import (
 
 func Example() {
 	ctx := context.Background()
-	bkt := gcsbucket.Open("test-bucket")
+	bkt, err := gcsbucket.Open(ctx, "test-bucket")
+	if err != nil {
+		// TODO: error handling
+	}
+
 	obj := "test/object"
 	content := `Lorem ipsum dolor sit amet,
 consectetur adipiscing elit,

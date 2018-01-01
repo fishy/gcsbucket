@@ -15,29 +15,39 @@ var _ bucket.Bucket = (*GCSBucket)(nil)
 
 // GCSBucket is an implementation of bucket with Google Cloud Storage.
 type GCSBucket struct {
-	name string
+	client *storage.Client
+	bkt    *storage.BucketHandle
 }
 
 // Open opens a gcs bucket.
 //
 // The bucket must already exist, otherwise all operations will fail.
-//
-// It doesn't do any I/O operations.
-func Open(bucket string) *GCSBucket {
-	return &GCSBucket{
-		name: bucket,
+func Open(ctx context.Context, bucket string) (*GCSBucket, error) {
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		return nil, err
 	}
+	bkt := client.Bucket(bucket)
+	return &GCSBucket{
+		client: client,
+		bkt:    bkt,
+	}, nil
+}
+
+// Close releases resources associated with this bucket.
+//
+// All operations will panic after Close is called.
+//
+// Close need not be called at program exit.
+func (gcs *GCSBucket) Close() error {
+	return gcs.client.Close()
 }
 
 func (gcs *GCSBucket) Read(ctx context.Context, name string) (
 	io.ReadCloser,
 	error,
 ) {
-	obj, err := gcs.getObject(ctx, name)
-	if err != nil {
-		return nil, err
-	}
-	return obj.NewReader(ctx)
+	return gcs.bkt.Object(name).NewReader(ctx)
 }
 
 func (gcs *GCSBucket) Write(
@@ -45,11 +55,7 @@ func (gcs *GCSBucket) Write(
 	name string,
 	data io.Reader,
 ) error {
-	obj, err := gcs.getObject(ctx, name)
-	if err != nil {
-		return err
-	}
-	writer := obj.NewWriter(ctx)
+	writer := gcs.bkt.Object(name).NewWriter(ctx)
 	if _, err := io.Copy(writer, data); err != nil {
 		writer.Close()
 		return err
@@ -59,27 +65,10 @@ func (gcs *GCSBucket) Write(
 
 // Delete deletes an object from the bucket.
 func (gcs *GCSBucket) Delete(ctx context.Context, name string) error {
-	obj, err := gcs.getObject(ctx, name)
-	if err != nil {
-		return err
-	}
-	return obj.Delete(ctx)
+	return gcs.bkt.Object(name).Delete(ctx)
 }
 
 // IsNotExist checks whether err is storage.ErrObjectNotExist.
 func (gcs *GCSBucket) IsNotExist(err error) bool {
 	return err == storage.ErrObjectNotExist
-}
-
-// getObject returns an ObjectHandle of a given object name.
-func (gcs *GCSBucket) getObject(
-	ctx context.Context,
-	name string,
-) (*storage.ObjectHandle, error) {
-	client, err := storage.NewClient(ctx)
-	if err != nil {
-		return nil, err
-	}
-	bkt := client.Bucket(gcs.name)
-	return bkt.Object(name), nil
 }
