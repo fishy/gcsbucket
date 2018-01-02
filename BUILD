@@ -19,6 +19,7 @@ go_library(
 
 go_test(
     name = "go_default_xtest",
+    size = "small",
     srcs = ["gcs_test.go"],
     importpath = "github.com/fishy/gcsbucket_test",
     deps = [":go_default_library"],
