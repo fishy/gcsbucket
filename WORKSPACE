@@ -21,7 +21,7 @@ gazelle_dependencies()
 go_repository(
     name = "com_github_fishy_fsdb",
     importpath = "github.com/fishy/fsdb",
-    commit = "746acff65e58e70e21a0c6ecfbe85bad2d7c99f9",
+    commit = "5527ded0137100d26d3b85b6473aab591f98959b",
 )
 
 go_repository(
@@ -33,7 +33,7 @@ go_repository(
 go_repository(
     name = "org_golang_google_api",
     importpath = "google.golang.org/api",
-    commit = "4c1b07210d562506ab52117997c3b7e294627ac9",
+    commit = "c7a403bb5fe12fe4644bb956edd5cd677626120a",
 )
 
 go_repository(
@@ -45,5 +45,5 @@ go_repository(
 go_repository(
     name = "org_golang_x_oauth2",
     importpath = "golang.org/x/oauth2",
-    commit = "a032972e28060ca4f5644acffae3dfc268cc09db",
+    commit = "543e37812f10c46c622c9575afd7ad22f22a12ba",
 )
