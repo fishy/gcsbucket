@@ -2,7 +2,7 @@ module github.com/fishy/gcsbucket
 
 require (
 	cloud.google.com/go v0.21.0
-	github.com/fishy/fsdb v0.0.0-20180426000801-2649223553cc
+	github.com/fishy/fsdb v0.0.0-20180426003153-b7f0369bae02
 	github.com/golang/protobuf v1.0.0
 	github.com/googleapis/gax-go v1.0.0
 	go.opencensus.io v0.8.0
