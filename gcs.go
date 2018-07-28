@@ -7,6 +7,7 @@ import (
 	"io"
 
 	"cloud.google.com/go/storage"
+	"github.com/fishy/errbatch"
 	"github.com/fishy/fsdb/bucket"
 )
 
@@ -57,8 +58,10 @@ func (gcs *GCSBucket) Write(
 ) error {
 	writer := gcs.bkt.Object(name).NewWriter(ctx)
 	if _, err := io.Copy(writer, data); err != nil {
-		writer.Close()
-		return err
+		var batch errbatch.ErrBatch
+		batch.Add(err)
+		batch.Add(writer.Close())
+		return batch.Compile()
 	}
 	return writer.Close()
 }

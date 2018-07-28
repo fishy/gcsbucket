@@ -2,14 +2,15 @@ module github.com/fishy/gcsbucket
 
 require (
 	cloud.google.com/go v0.25.0
-	github.com/fishy/fsdb v0.0.0-20180721052438-d39c91da5bb0
-	github.com/golang/protobuf v1.1.0
-	github.com/googleapis/gax-go v2.0.0+incompatible
-	go.opencensus.io v0.14.0
-	golang.org/x/net v0.0.0-20180719180050-a680a1efc54d
-	golang.org/x/oauth2 v0.0.0-20180620175406-ef147856a6dd
+	github.com/fishy/errbatch v0.0.0-20180528213649-54f5e12eed54
+	github.com/fishy/fsdb v0.0.0-20180728220904-42788af33c20
+	github.com/golang/protobuf v1.1.0 // indirect
+	github.com/googleapis/gax-go v2.0.0+incompatible // indirect
+	go.opencensus.io v0.14.0 // indirect
+	golang.org/x/net v0.0.0-20180724234803-3673e40ba225 // indirect
+	golang.org/x/oauth2 v0.0.0-20180724155351-3d292e4d0cdc // indirect
 	golang.org/x/text v0.3.0 // indirect
-	google.golang.org/api v0.0.0-20180718221112-efcb5f25ac56
-	google.golang.org/genproto v0.0.0-20180718234121-fedd2861243f
-	google.golang.org/grpc v1.13.0
+	google.golang.org/api v0.0.0-20180726000515-082d5fa4f1f0 // indirect
+	google.golang.org/genproto v0.0.0-20180726180014-2a72893556e4 // indirect
+	google.golang.org/grpc v1.13.0 // indirect
 )
